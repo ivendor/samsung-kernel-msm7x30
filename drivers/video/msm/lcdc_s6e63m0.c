@@ -1006,7 +1006,7 @@ static void lcdc_s6e63m0_shutdown(struct platform_device *pdev)
     gpio_set_value(lcd_reset, 0);    
 }
 
-static struct platform_driver this_driver = {
+static struct platform_driver this_driver __initdata = {
     .probe = lcdc_s6e63m0_probe,
     .shutdown = lcdc_s6e63m0_shutdown,
     .driver = {
