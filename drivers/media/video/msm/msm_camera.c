@@ -3021,6 +3021,12 @@ static long msm_ioctl_control(struct file *filep, unsigned int cmd,
 	case MSM_CAM_IOCTL_GET_CAMERA_INFO:
 		rc = msm_get_camera_info(argp);
 		break;
+/* ADD FOR OEM CAMERA START */
+#if defined (CONFIG_OEM_CAMERA) 
+	case MSM_CAM_IOCTL_EXT_CONFIG:
+		rc = pmsm->sync->sctrl.s_ext_config(argp);
+		break;
+#endif
 	default:
 		rc = msm_ioctl_common(pmsm, cmd, argp);
 		break;

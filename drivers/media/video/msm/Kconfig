@@ -23,16 +23,16 @@ config SENSOR_MC7
 	default n
 
 config SENSOR_CE147
-	bool "NEC ISP (BAYER 5M)"
-	default n
+    bool "NEC ISP (BAYER 5M)"
+    default n
 
 config SENSOR_S5K4ECGX
 	bool "LSI (BAYER 5M)"
 	default n
 
 config SENSOR_S5KA3DFX
-	bool "LSI CIS (VGA)"
-	default n
+    bool "LSI CIS (VGA)"
+    default n
 
 config MT9T013
 	bool "Sensor mt9t013 (BAYER 3M)"
