@@ -7524,13 +7524,13 @@ static struct memtype_reserve msm7x30_reserve_table[] __initdata = {
 
 static void __init size_pmem_devices(void)
 {
+#ifdef CONFIG_ANDROID_PMEM
 	unsigned long size;
 
 	if machine_is_msm7x30_fluid()
 		size = fluid_pmem_adsp_size;
 	else
 		size = pmem_adsp_size;
-#ifdef CONFIG_ANDROID_PMEM
 #ifndef CONFIG_MSM_MULTIMEDIA_USE_ION
 	android_pmem_adsp_pdata.size = size;
 	android_pmem_pdata.size = pmem_sf_size;
@@ -7567,13 +7567,13 @@ static void __init size_ion_devices(void)
 	unsigned long size;
 
 	if machine_is_msm7x30_fluid()
-		size = fluid_pmem_adsp_size;
+		size = MSM_FLUID_PMEM_ADSP_SIZE;
 	else
-		size = pmem_adsp_size;
+		size = MSM_PMEM_ADSP_SIZE;
 	
 	msm_ion_camera_size = size;
 	msm_ion_audio_size = MSM_ION_AUDIO_SIZE; //(MSM_ION_AUDIO_SIZE + PMEM_KERNEL_EBI0_SIZE);
-	msm_ion_sf_size = pmem_sf_size;
+	msm_ion_sf_size = MSM_ION_SF_SIZE;
 	
 	ion_pdata.heaps[1].size = msm_ion_camera_size;
 	ion_pdata.heaps[2].size = msm_ion_audio_size;
