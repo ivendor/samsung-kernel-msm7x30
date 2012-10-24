@@ -178,9 +178,6 @@ EXPORT_SYMBOL(switch_dev);
 
 #ifdef CONFIG_ION_MSM
 #ifdef CONFIG_MSM_MULTIMEDIA_USE_ION
-#define MSM_ION_SF_SIZE		MSM_PMEM_SF_SIZE
-#define MSM_ION_CAMERA_SIZE     MSM_PMEM_ADSP_SIZE
-#define MSM_ION_AUDIO_SIZE	MSM_PMEM_AUDIO_SIZE
 
 #define MSM_ION_HEAP_NUM	4
 #else
@@ -7468,7 +7465,6 @@ static struct ion_platform_data ion_pdata = {
 			.id	= ION_CAMERA_HEAP_ID,
 			.type	= ION_HEAP_TYPE_CARVEOUT,
 			.name	= ION_CAMERA_HEAP_NAME,
-			.size	= MSM_ION_CAMERA_SIZE,
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = (void *)&co_ion_pdata,
 		},
@@ -7477,7 +7473,6 @@ static struct ion_platform_data ion_pdata = {
 			.id	= ION_AUDIO_HEAP_ID,
 			.type	= ION_HEAP_TYPE_CARVEOUT,
 			.name	= ION_AUDIO_HEAP_NAME,
-			.size	= MSM_ION_AUDIO_SIZE,
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = (void *)&co_ion_pdata,
 		},
@@ -7486,7 +7481,6 @@ static struct ion_platform_data ion_pdata = {
 			.id	= ION_SF_HEAP_ID,
 			.type	= ION_HEAP_TYPE_CARVEOUT,
 			.name	= ION_SF_HEAP_NAME,
-			.size	= MSM_ION_SF_SIZE,
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = (void *)&co_ion_pdata,
 		},
@@ -7565,8 +7559,8 @@ static void __init size_ion_devices(void)
 		size = MSM_PMEM_ADSP_SIZE;
 	
 	msm_ion_camera_size = size;
-	msm_ion_audio_size = MSM_ION_AUDIO_SIZE; //(MSM_ION_AUDIO_SIZE + PMEM_KERNEL_EBI0_SIZE);
-	msm_ion_sf_size = MSM_ION_SF_SIZE;
+	msm_ion_audio_size = MSM_PMEM_AUDIO_SIZE;
+	msm_ion_sf_size = MSM_PMEM_SF_SIZE;
 	
 	ion_pdata.heaps[1].size = msm_ion_camera_size;
 	ion_pdata.heaps[2].size = msm_ion_audio_size;
