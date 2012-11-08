@@ -77,7 +77,7 @@ static int fsa9480_probe_done = 0;
 int disable_vbus_flag =0 ;
 #endif
 
-#define _SUPPORT_SAMSUNG_AUTOINSTALLER_
+//#define _SUPPORT_SAMSUNG_AUTOINSTALLER_
 #define dmsg(arg,...) printk("[USB_SWITCH] %s(%d): "arg,__FUNCTION__,__LINE__,##__VA_ARGS__)
 
 #define DRIVER_NAME  "usb_mass_storage"   
@@ -393,7 +393,7 @@ EXPORT_SYMBOL(fsa9480_select_mode);
 static void fsa9480_chip_init(void)
 {
 	unsigned char cont_reg = 0;
-	int ret;
+	int ret = 0;
 	
 	printk("[FSA9480] fsa9480_chip_init \n");	
 	if (!pclient) 
@@ -551,6 +551,7 @@ static void usb_switch_mode(int mode)
 	}
 }
 
+#if 0
 static int get_current_mode(void)
 {
 	int mode = 0;
@@ -559,6 +560,7 @@ static int get_current_mode(void)
 	
 	return mode;
 }
+#endif
 #include <linux/vmalloc.h>
 #include <linux/mm.h>
 
@@ -697,6 +699,7 @@ void uart_switch_mode_select(int mode) {
 }
 EXPORT_SYMBOL(uart_switch_mode_select);
 
+#if 0
 static ssize_t DefaultESNStatus_switch_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
     if (g_default_ESN_status) {    
@@ -753,6 +756,7 @@ static ssize_t dock_switch_store(struct device *dev, struct device_attribute *at
 }
 
 static DEVICE_ATTR(dock, S_IRUGO |S_IWUGO | S_IRUSR | S_IWUSR, dock_switch_show, dock_switch_store);
+#endif
 
 void usb_switch_state(void)
 {
@@ -1344,7 +1348,7 @@ exit_check_functionality_failed:
 }
 
 	
-static int fsa9480_remove(struct i2c_client *client)
+static int __devexit fsa9480_remove(struct i2c_client *client)
 {
 	struct fsa9480_data *mt;
 
@@ -1355,6 +1359,7 @@ static int fsa9480_remove(struct i2c_client *client)
 	return 0;
 }
 
+<<<<<<< HEAD
 static void fsa9480_shutdown(struct i2c_client *client)
 {
 	struct fsa9480_data *mt;
@@ -1365,17 +1370,14 @@ static void fsa9480_shutdown(struct i2c_client *client)
 	kfree(mt);
 }
 
+=======
+>>>>>>> arco-samsung-kernel-msm7x30/ics-3.0
 static const struct i2c_device_id fsa9480_id[] = {
 	{ "fsa9480", 0 },
 	{ }
 };
 
 MODULE_DEVICE_TABLE(i2c, fsa9480_id);
-
-static int fsa9480_suspend(struct i2c_client *client, pm_message_t mesg)
-{
-	return 0;
-}
 
 static int fsa9480_resume(struct i2c_client *client)
 {
@@ -1388,12 +1390,17 @@ static int fsa9480_resume(struct i2c_client *client)
 
 static struct i2c_driver fsa9480_driver = {
 	.probe 		= fsa9480_probe,
+<<<<<<< HEAD
 	.remove 	= fsa9480_remove,
 	.suspend	= fsa9480_suspend,
 	.resume	= fsa9480_resume,
 	.shutdown = fsa9480_shutdown,
+=======
+	.remove		= __devexit_p(fsa9480_remove),
+	.resume		= fsa9480_resume,
+>>>>>>> arco-samsung-kernel-msm7x30/ics-3.0
 	.id_table	= fsa9480_id,
-	.driver = {		
+	.driver = {
 		.name   = "fsa9480",
 	},
 };
